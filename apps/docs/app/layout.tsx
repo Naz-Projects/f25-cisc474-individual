@@ -4,7 +4,7 @@ import "./globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
-  variable: "--font-g eist-sans",
+  variable: "--font-geist-sans",
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>

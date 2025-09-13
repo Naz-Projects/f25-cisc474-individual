@@ -6,6 +6,11 @@ import './instructor-dashboard.css'
 const InstructorDashboard = () => {
   const [darkMode, setDarkMode] = useState(false)
   const [activeTab, setActiveTab] = useState('courses')
+  const [mounted, setMounted] = useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Mock data for demonstration - Instructor perspective
   const courses = [
@@ -68,6 +73,10 @@ const InstructorDashboard = () => {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
+  }
+
+  if (!mounted) {
+    return null
   }
 
   return (
