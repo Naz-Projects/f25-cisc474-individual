@@ -6,9 +6,18 @@ import './admin-dashboard.css'
 const AdminDashboard = () => {
   const [darkMode, setDarkMode] = useState(false)
   const [activeTab, setActiveTab] = useState('manage-students')
+  const [mounted, setMounted] = useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
+  }
+
+  if (!mounted) {
+    return null
   }
 
   return (

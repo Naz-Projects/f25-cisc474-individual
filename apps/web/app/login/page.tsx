@@ -117,11 +117,31 @@ const LoginPage = () => {
               <span>OR</span>
             </div>
 
-            <div className="social-login">
-              <button className="social-btn google-btn">
-                <div className="social-icon">G</div>
-                Continue with Google
-              </button>
+            <div className="role-login">
+              <p className="role-login-text">Quick Login as:</p>
+              <div className="role-buttons">
+                <button 
+                  className="role-btn student-btn"
+                  onClick={() => window.location.href = '/dashboard'}
+                >
+                  <div className="role-icon">🎓</div>
+                  Student
+                </button>
+                <button 
+                  className="role-btn instructor-btn"
+                  onClick={() => window.location.href = '/instructor-dashboard'}
+                >
+                  <div className="role-icon">👨‍🏫</div>
+                  Instructor
+                </button>
+                <button 
+                  className="role-btn admin-btn"
+                  onClick={() => window.location.href = '/admin-dashboard'}
+                >
+                  <div className="role-icon">👨‍💼</div>
+                  Admin
+                </button>
+              </div>
             </div>
 
             <div className="signup-prompt">
