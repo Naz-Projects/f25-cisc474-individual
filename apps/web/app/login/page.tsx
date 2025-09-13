@@ -28,7 +28,8 @@ const LoginPage = () => {
     // Simulate loading for now
     setTimeout(() => {
       setIsLoading(false)
-      alert('Login functionality will be implemented soon!')
+      // Redirect to dashboard for demo purposes
+      window.location.href = '/dashboard'
     }, 1500)
   }
 
