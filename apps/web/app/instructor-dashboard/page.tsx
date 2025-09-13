@@ -7,6 +7,65 @@ const InstructorDashboard = () => {
   const [darkMode, setDarkMode] = useState(false)
   const [activeTab, setActiveTab] = useState('courses')
 
+  // Mock data for demonstration - Instructor perspective
+  const courses = [
+    {
+      id: 1,
+      name: 'Introduction to Programming',
+      code: 'CISC 108',
+      instructor: 'Dr. Smith',
+      enrolledStudents: 45,
+      assignments: 8,
+      pendingGrades: 12,
+      announcements: 2,
+      nextDeadline: 'Assignment 4 Due - Oct 15, 2024'
+    },
+    {
+      id: 2,
+      name: 'Data Structures',
+      code: 'CISC 220',
+      instructor: 'Prof. Johnson',
+      enrolledStudents: 32,
+      assignments: 10,
+      pendingGrades: 5,
+      announcements: 1,
+      nextDeadline: 'Project 2 Due - Oct 20, 2024'
+    },
+    {
+      id: 3,
+      name: 'Web Technologies',
+      code: 'CISC 474',
+      instructor: 'Dr. Bart',
+      enrolledStudents: 28,
+      assignments: 6,
+      pendingGrades: 8,
+      announcements: 0,
+      nextDeadline: 'Final Project Due - Dec 1, 2025'
+    },
+    {
+      id: 4,
+      name: 'Database Systems',
+      code: 'CISC 437',
+      instructor: 'Prof. Gibbons',
+      enrolledStudents: 38,
+      assignments: 9,
+      pendingGrades: 15,
+      announcements: 3,
+      nextDeadline: 'Exam - Sept 30, 2025'
+    },
+    {
+      id: 5,
+      name: 'Senior Design',
+      code: 'CISC 498',
+      instructor: 'Professor Armando',
+      enrolledStudents: 24,
+      assignments: 4,
+      pendingGrades: 3,
+      announcements: 1,
+      nextDeadline: 'Team Project Due - Oct 25, 2025'
+    }
+  ]
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
   }
@@ -69,6 +128,64 @@ const InstructorDashboard = () => {
         </div>
       </header>
 
+      {/* Main Content */}
+      <main className="dashboard-main">
+        <div className="dashboard-content">
+          {/* Dashboard Header */}
+          <div className="dashboard-title">
+            <h1>Instructor Dashboard</h1>
+            <p>Manage your courses, assignments, and student progress from here.</p>
+          </div>
+
+          {/* Courses Grid */}
+          {activeTab === 'courses' && (
+            <section className="courses-section">
+              <div className="section-header">
+                <h2>My Courses</h2>
+                <span className="course-count">{courses.length} courses</span>
+              </div>
+
+              <div className="courses-grid">
+                {courses.map(course => (
+                  <div key={course.id} className="course-card instructor-view">
+                    <div className="course-header">
+                      <h3 className="course-name">{course.name}</h3>
+                      <span className="course-code">{course.code}</span>
+                    </div>
+                    
+                    <div className="course-info">
+                      <p className="instructor">👨‍🏫 {course.instructor}</p>
+                      
+                      <div className="course-stats">
+                        <div className="stat-item">
+                          <span className="stat-number">{course.enrolledStudents}</span>
+                          <span className="stat-label">Students</span>
+                        </div>
+                        <div className="stat-item">
+                          <span className="stat-number">{course.assignments}</span>
+                          <span className="stat-label">Assignments</span>
+                        </div>
+                        <div className="stat-item">
+                          <span className="stat-number">{course.pendingGrades}</span>
+                          <span className="stat-label">Pending Grades</span>
+                        </div>
+                      </div>
+
+                      <div className="next-deadline">
+                        <span className="deadline-label">Next Deadline:</span>
+                        <span className="deadline-text">{course.nextDeadline}</span>
+                      </div>
+                    </div>
+
+                    <div className="course-actions">
+                      <button className="btn-manage-course">Manage Course</button>
+                      <button className="btn-view-grades">View Grades</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Placeholder sections for other tabs */}
           {activeTab === 'create-assignment' && (
@@ -111,6 +228,8 @@ const InstructorDashboard = () => {
             </section>
           )}
         </div>
+      </main>
+    </div>
   )
 }
 

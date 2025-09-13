@@ -219,3 +219,84 @@
   color: var(--text-muted);
   text-align: center;
 }
+
+/* Next Deadline */
+.next-deadline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.deadline-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.deadline-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Course Actions - Updated for instructor */
+.course-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-manage-course,
+.btn-view-grades {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-manage-course {
+  background: #e87300;
+  color: white;
+}
+
+.btn-manage-course:hover {
+  background: #d16600;
+  transform: translateY(-1px);
+}
+
+.btn-view-grades {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-view-grades:hover {
+  background: var(--bg-tertiary);
+  border-color: #e87300;
+}
+
+/* Placeholder Content */
+.placeholder-content {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.placeholder-content p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.placeholder-content p:last-child {
+  margin-bottom: 0;
+}
