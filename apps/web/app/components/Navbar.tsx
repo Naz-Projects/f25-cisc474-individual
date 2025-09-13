@@ -25,7 +25,7 @@ const Navbar = () => {
         <ul className="nav-links">
           <li><Link href="#features">Features</Link></li>
           <li><Link href="#about">About</Link></li>
-          <li><Link href="#contact">Contact</Link></li>
+          <li><Link href="#pricing">Pricing</Link></li>
         </ul>
 
         <div className="nav-buttons">
