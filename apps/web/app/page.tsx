@@ -30,34 +30,6 @@ const Page = () => {
               </Link>
             </div>
 
-            {/* Demo Links */}
-            <div style={{marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap'}}>
-              <Link href="/dashboard" style={{
-                background: 'rgba(232, 115, 0, 0.1)',
-                color: '#e87300',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                border: '1px solid rgba(232, 115, 0, 0.3)',
-                fontSize: '0.9rem',
-                fontWeight: '600'
-              }}>
-                🎓 Student Dashboard Demo
-              </Link>
-              <Link href="/instructor-dashboard" style={{
-                background: 'rgba(232, 115, 0, 0.1)',
-                color: '#e87300',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                border: '1px solid rgba(232, 115, 0, 0.3)',
-                fontSize: '0.9rem',
-                fontWeight: '600'
-              }}>
-                👨‍🏫 Instructor Dashboard Demo
-              </Link>
-            </div>
-
             <div className="stats">
               <div className="stat-item">
                 <span className="stat-number">10,000+</span>
