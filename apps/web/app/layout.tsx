@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   description: "Revolutionary Learning Management System for programming courses with AI assistance, automated testing, and personalized feedback.",
   keywords: "programming, learning, LMS, coding, AI, education, courses",
   authors: [{ name: "Codify Learning Team" }],
+  icons: {
+    icon: "/favicon.ico",
+  },
+  other: {
+    "theme-color": "#667eea",
+  },
 };
 
 export const viewport = {
@@ -33,10 +39,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#667eea" />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
