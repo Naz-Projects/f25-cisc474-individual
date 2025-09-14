@@ -31,9 +31,9 @@ body {
 }
 
 .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(26, 25, 30, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .nav-content {
@@ -55,7 +55,7 @@ body {
 .logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #e87300;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@ body {
 }
 
 .navbar.scrolled .logo-text {
-  color: #333;
+  color: #f8f8f8;
 }
 
 .nav-links {
@@ -91,11 +91,11 @@ body {
 }
 
 .navbar.scrolled .nav-links a {
-  color: #666;
+  color: #f8f8f8;
 }
 
 .nav-links a:hover {
-  color: #667eea;
+  color: #e87300;
 }
 
 .nav-buttons {
@@ -112,11 +112,15 @@ body {
 }
 
 .navbar.scrolled .btn-login {
-  color: #666;
+  color: #f8f8f8;
+}
+
+.btn-login:hover {
+  color: #e87300;
 }
 
 .btn-signup {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #e87300;
   color: white;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
@@ -127,7 +131,8 @@ body {
 
 .btn-signup:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(232, 115, 0, 0.4);
+  background: #d16600;
 }
 
 /* Mobile menu button */
@@ -155,13 +160,13 @@ body {
 }
 
 .navbar.scrolled .hamburger span {
-  background: #333;
+  background: #f8f8f8;
 }
 
 /* Hero Section */
 .hero {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a191e;
   display: flex;
   align-items: center;
   position: relative;
@@ -197,10 +202,7 @@ body {
 }
 
 .hero-subtitle {
-  background: linear-gradient(135deg, #a8edea, #fed6e3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #e87300;
   font-size: 3.5rem;
   font-weight: bold;
   display: block;
@@ -210,7 +212,7 @@ body {
 .hero-description {
   font-size: 1.3rem;
   margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #f8f8f8;
   line-height: 1.6;
 }
 
@@ -223,8 +225,8 @@ body {
 }
 
 .btn-primary {
-  background: white;
-  color: #667eea;
+  background: #e87300;
+  color: white;
   padding: 1rem 2rem;
   border-radius: 50px;
   text-decoration: none;
@@ -236,15 +238,15 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-  background: #f8f9ff;
+  box-shadow: 0 10px 25px rgba(232, 115, 0, 0.3);
+  background: #d16600;
 }
 
 .btn-secondary {
   background: transparent;
-  color: white;
+  color: #f8f8f8;
   padding: 1rem 2rem;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid #f8f8f8;
   border-radius: 50px;
   text-decoration: none;
   font-weight: 600;
@@ -254,7 +256,8 @@ body {
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #f8f8f8;
+  color: #1a191e;
   transform: translateY(-3px);
 }
 
@@ -278,14 +281,14 @@ body {
 }
 
 .stat-label {
-  color: rgba(255, 255, 255, 0.8);
+  color: #f8f8f8;
   font-size: 1rem;
 }
 
 /* Features Section */
 .features {
   padding: 5rem 0;
-  background: #f8f9fa;
+  background: #f8f8f8;
 }
 
 .section-title {
@@ -295,15 +298,12 @@ body {
 
 .section-title h2 {
   font-size: 3rem;
-  color: #333;
+  color: #1a191e;
   margin-bottom: 1rem;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #e87300;
 }
 
 .section-description {
@@ -346,7 +346,7 @@ body {
 }
 
 .feature-icon.ai {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #e87300;
 }
 
 .feature-icon.testing {
@@ -371,7 +371,7 @@ body {
 
 .feature-card h3 {
   font-size: 1.5rem;
-  color: #333;
+  color: #1a191e;
   margin-bottom: 1rem;
 }
 
@@ -402,7 +402,7 @@ body {
 
 /* CTA Section */
 .cta {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #1a191e;
   padding: 5rem 0;
   text-align: center;
   color: white;
@@ -416,7 +416,7 @@ body {
 .cta p {
   font-size: 1.3rem;
   margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #f8f8f8;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -463,7 +463,7 @@ body {
 }
 
 .footer-section a:hover {
-  color: #667eea;
+  color: #e87300;
 }
 
 .footer-bottom {
@@ -495,7 +495,7 @@ body {
   left: 10%;
   width: 100px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(232, 115, 0, 0.1);
   border-radius: 50%;
   animation: float 8s ease-in-out infinite;
 }
