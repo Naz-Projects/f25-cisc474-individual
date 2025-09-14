@@ -32,12 +32,12 @@ const Page = () => {
 
             <div className="stats">
               <div className="stat-item">
-                <span className="stat-number">10,000+</span>
+                <span className="stat-number">5,000+</span>
                 <span className="stat-label">Students Learning</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">500+</span>
-                <span className="stat-label">Programming Challenges</span>
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Programming Course</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">95%</span>
