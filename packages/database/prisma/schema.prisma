@@ -11,10 +11,55 @@ generator client {
   provider = "prisma-client-js"
   output   = "../generated/client"
 }
+enum Role {
+  USER
+  INSTRUCTOR
+  ADMIN
+}
 
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
+  PENDING
+}
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  role          Role      @default(USER)
+  profile       Profile?
+  Course Course[]
+  Enrollment Enrollment[]
+}
+
+model Profile {
+  id         String  @id @default(cuid())
+  bio        String?
+  profilePic String? // URL or path to profile picture
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String  @unique
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  instructorID String
+  instructor  User  @relation(fields: [instructorID], references: [id], onDelete: Cascade)
+  enrollments Enrollment[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Enrollment {
+  id         String           @id @default(cuid())
+  userId     String
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course     Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId   String
+  status     EnrollmentStatus @default(ACTIVE)
+  enrolledAt DateTime         @default(now())
+  @@unique([userId, courseId])
 }
