@@ -30,8 +30,12 @@ model User {
   emailVerified DateTime?
   role          Role      @default(USER)
   profile       Profile?
-  Course Course[]
-  Enrollment Enrollment[]
+  courses Course[]
+  enrollments Enrollment[]
+  submissions Submission[]
+  Announcement Announcement[]
+  @@index([role]) // finding all students and instructors
+  @@index([email]) //login purposes
 }
 
 model Profile {
@@ -51,6 +55,16 @@ model Course {
   enrollments Enrollment[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  assignments Assignment[]
+  announcements Announcement[]
+  // Schedule fields for calendar
+  dayOfWeek   String
+  startTime   String
+  endTime     String
+  location    String
+  startDate   DateTime
+  endDate     DateTime
+  @@index([dayOfWeek, startTime]) //for calender view
 }
 
 model Enrollment {
@@ -61,5 +75,56 @@ model Enrollment {
   courseId   String
   status     EnrollmentStatus @default(ACTIVE)
   enrolledAt DateTime         @default(now())
+
   @@unique([userId, courseId])
+  @@index([userId, status]) // find active students
+  @@index([courseId, status])
 }
+
+model Assignment {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  maxPoints   Float?
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId    String
+  submissions Submission[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([courseId]) //find assignemnts by course
+  @@index([dueDate]) // find upcoming assignments
+  @@index([courseId, dueDate])
+}
+
+model Submission {
+  id           String   @id @default(cuid())
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  assignmentId String
+  student      User       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId    String
+  content      String
+  late        Boolean   @default(false)
+  submittedAt  DateTime   @default(now())
+  grade        Float?
+  feedback     String?
+
+  @@unique([assignmentId, studentId]) // one submission per student per assignment
+  @@index([studentId])
+  @@index([assignmentId]) //fetching all submissions for an assignment
+  @@index([submittedAt]) //sortiing submissions by time
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId    String
+  instructor  User     @relation(fields: [instructorId], references: [id])
+  instructorId String  
+  createdAt   DateTime @default(now())
+}
+
+
