@@ -3,14 +3,14 @@
 ## Prisma Schema
 
 The complete database schema definition can be found here:
-- [Prisma Schema](../../packages/database/prisma/schema.prisma)
+- [Prisma Schema](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/prisma/schema.prisma)
 
 ### Core Tables
 
-- [User Table](../../tables/users.csv) - All users (students, instructors, admin)
-- [Profile Table](../../tables/profiles.csv) - User profiles with bio and profile pictures
-- [Course Table](../../tables/courses.csv) - Course information with schedules and instructors
-- [Enrollment Table](../../tables/enrollments.csv) - Student-course relationships with status
-- [Assignment Table](../../tables/assignments.csv) - Course assignments with due dates and points
-- [Submission Table](../../tables/submissions.csv) - Student code submissions with grades and feedback
-- [Announcement Table](../../tables/announcements.csv) - Course announcements from instructors
+- [User Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/User_rows.csv) - All users (students, instructors, admin)
+- [Profile Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/Profile_rows.csv) - User profiles with bio and profile pictures
+- [Course Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/Course_rows.csv) - Course information with schedules and instructors
+- [Enrollment Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/Enrollment_rows.csv) - Student-course relationships with status
+- [Assignment Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/Assignment_rows.csv) - Course assignments with due dates and points
+- [Submission Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/Submission_rows.csv) - Student code submissions with grades and feedback
+- [Announcement Table](https://github.com/Naz-Projects/f25-cisc474-individual/blob/main/packages/database/tables/Announcement_rows.csv) - Course announcements from instructors
