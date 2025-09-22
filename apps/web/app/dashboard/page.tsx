@@ -207,8 +207,7 @@ const StudentDashboard = () => {
 
           {activeTab === 'schedule' && (
             <section className="schedule-section">
-              <h2>My Sche
-                   dule</h2>
+              <h2>My Schedule</h2>
               <div className="placeholder-content">
                 <p>📅 Calendar and schedule interface will be implemented here.</p>
                 <p>Students will see due dates, class times, and important deadlines.</p>

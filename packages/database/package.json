@@ -21,6 +21,7 @@
     "@prisma/client": "latest"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "eslint": "^8.57.0",

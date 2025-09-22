@@ -1,0 +1,7 @@
+id,name,email,emailVerified,role
+admin_001,System Admin,admin@udel.edu,2024-08-10 00:00:00,ADMIN
+instructor_johnson_002,Prof. Johnson,johnson@udel.edu,2024-08-16 00:00:00,INSTRUCTOR
+instructor_smith_001,Dr. Smith,smith@udel.edu,2024-08-15 00:00:00,INSTRUCTOR
+user_bob_003,Bob Wilson,bob@udel.edu,2024-08-22 00:00:00,USER
+user_jane_002,Jane Doe,jane@udel.edu,2024-08-21 00:00:00,USER
+user_nazmul_001,Nazmul Hossain,nazmul@udel.edu,2024-08-20 00:00:00,USER
