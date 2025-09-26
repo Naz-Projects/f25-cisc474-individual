@@ -56,7 +56,7 @@ pnpm-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
+CLAUDE.md
 # IDEs and editors
 /.idea
 .project
@@ -69,3 +69,6 @@ pnpm-debug.log*
 
 server/dist
 public/dist
+
+CLUADE.md
+.claude

@@ -1,0 +1,7 @@
+id,bio,profilePic,userId
+profile_admin_001,System administrator for the LMS platform.,https://example.com/avatar5.jpg,admin_001
+profile_bob_003,,,user_bob_003
+profile_jane_002,Software Engineering student interested in mobile development.,https://example.com/avatar2.jpg,user_jane_002
+profile_johnson_002,"Professor of Computer Science, expert in data structures and algorithms.",https://example.com/avatar4.jpg,instructor_johnson_002
+profile_nazmul_001,Computer Science student passionate about web development and databases.,https://example.com/avatar1.jpg,user_nazmul_001
+profile_smith_001,Associate Professor of Computer Science specializing in programming fundamentals.,https://example.com/avatar3.jpg,instructor_smith_001

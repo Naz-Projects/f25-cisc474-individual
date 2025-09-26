@@ -1,0 +1,5 @@
+id,title,description,dueDate,maxPoints,courseId,createdAt,updatedAt
+assignment_hello_001,Hello World Program,"Write your first Python program that prints 'Hello, World!'",2024-09-15 00:00:00,50,course_cisc108_001,2025-09-22 03:01:47.865,2025-09-22 03:01:47.865
+assignment_loops_003,Loops and Control Flow,Implement various loop structures and conditional statements.,2024-10-15 00:00:00,100,course_cisc108_001,2025-09-22 03:01:47.865,2025-09-22 03:01:47.865
+assignment_react_004,React Component Development,Build a complete React application with multiple components.,2024-11-30 00:00:00,200,course_cisc474_003,2025-09-22 03:01:47.865,2025-09-22 03:01:47.865
+assignment_variables_002,Variables and Data Types,"Practice with Python variables, strings, and numbers.",2024-09-30 00:00:00,75,course_cisc108_001,2025-09-22 03:01:47.865,2025-09-22 03:01:47.865

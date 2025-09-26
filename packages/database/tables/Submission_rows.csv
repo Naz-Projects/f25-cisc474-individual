@@ -1,0 +1,31 @@
+id,assignmentId,studentId,content,late,submittedAt,grade,feedback
+submission_001,assignment_hello_001,user_nazmul_001,"def hello_world():
+    print(""Hello, World!"")
+    return True
+
+if __name__ == ""__main__"":
+    hello_world()",false,2024-09-10 00:00:00,95.5,Excellent work! Clean code and meets all requirements.
+submission_002,assignment_hello_001,user_jane_002,"print(""Hello, World!"")
+print(""This is my first program"")",true,2024-09-16 00:00:00,85,Good work but submitted late. Code is functional but could be more structured.
+submission_003,assignment_variables_002,user_nazmul_001,"name = ""Nazmul""
+age = 20
+print(f""My name is {name} and I am {age} years old"")",false,2024-09-28 00:00:00,,
+submission_004,assignment_variables_002,user_jane_002,"student_name = input(""Enter your name: "")
+student_age = int(input(""Enter your age: ""))
+print(""Name:"", student_name, ""Age:"", student_age)",true,2024-10-02 00:00:00,65,Good logic but late submission. Points deducted for tardiness.
+submission_005,assignment_react_004,user_nazmul_001,"import React, { useState } from 'react';
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+
+export default App;",false,2024-11-25 00:00:00,,

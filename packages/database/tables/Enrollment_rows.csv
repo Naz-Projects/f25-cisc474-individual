@@ -1,0 +1,7 @@
+id,userId,courseId,status,enrolledAt
+enrollment_001,user_nazmul_001,course_cisc108_001,ACTIVE,2024-08-25 00:00:00
+enrollment_002,user_jane_002,course_cisc108_001,ACTIVE,2024-08-25 00:00:00
+enrollment_003,user_bob_003,course_cisc108_001,DROPPED,2024-08-25 00:00:00
+enrollment_004,user_nazmul_001,course_cisc220_002,ACTIVE,2024-08-26 00:00:00
+enrollment_005,user_jane_002,course_cisc220_002,ACTIVE,2024-08-26 00:00:00
+enrollment_006,user_nazmul_001,course_cisc474_003,ACTIVE,2024-08-27 00:00:00

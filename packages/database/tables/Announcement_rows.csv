@@ -1,0 +1,4 @@
+id,title,content,courseId,instructorId,createdAt
+announcement_001,Welcome to Introduction to Programming!,Welcome everyone! Please review the syllabus and complete the first assignment.,course_cisc108_001,instructor_smith_001,2024-08-26 00:00:00
+announcement_002,Assignment 1 Deadline Reminder,Just a reminder that Assignment 1 is due this Sunday. Please submit early to avoid any technical issues.,course_cisc108_001,instructor_smith_001,2024-09-12 00:00:00
+announcement_003,Data Structures Course Introduction,Welcome to Data Structures! We'll start with course overview next week. No assignments yet - just come prepared to learn!,course_cisc220_002,instructor_johnson_002,2024-08-26 00:00:00
