@@ -1,11 +1,6 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User } from '@repo/database';
-
-interface makeUserDto {
-    email: String,
-    name: String,
-}  
 
 @Injectable()
 export class UsersService {
