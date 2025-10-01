@@ -1,0 +1,15 @@
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
+
+@Injectable()
+export class CourseService {
+    constructor(private prisma: PrismaService) {}
+
+    async findAll() {
+        return this.prisma.course.findMany();
+    }
+
+    async findOne(id: string) {
+        return this.prisma.course.findUnique({ where: { id } });
+    }
+}

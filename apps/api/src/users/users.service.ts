@@ -8,7 +8,7 @@ export class UsersService {
 
     async findAll(): Promise<User[]> {
         return this.prisma.user.findMany();
-}
+    }
 
 
     async findOne(id: string): Promise<User | null> {

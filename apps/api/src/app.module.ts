@@ -4,9 +4,11 @@ import { LinksModule } from './links/links.module';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { UsersModule } from './users/users.module';
+import { CourseModule } from './course/course.module';
 
 @Module({
-  imports: [LinksModule],
+  imports: [LinksModule,UsersModule, CourseModule],
   controllers: [AppController],
   providers: [AppService],
 })
