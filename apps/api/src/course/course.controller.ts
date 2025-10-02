@@ -1,7 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { CourseService } from './course.service';
-@Controller('course')
-    export class CourseController {
+import { Course } from '@repo/database';
+@Controller('courses')
+export class CourseController {
     constructor(private readonly courseService: CourseService) {}
 
     @Get()
@@ -13,4 +14,5 @@ import { CourseService } from './course.service';
     async findOne(@Param('id') id: string) {
         return this.courseService.findOne(id);
     }
+
 }
