@@ -2,7 +2,9 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import './admin-dashboard.css'
-
+import ManageStudents from '../components/ManageStudents'
+import ManageCourses from '../components/ManageCourses'
+import ManageInstructors from '../components/ManageInstructors'
 const AdminDashboard = () => {
   const [darkMode, setDarkMode] = useState(false)
   const [activeTab, setActiveTab] = useState('manage-students')
@@ -77,6 +79,17 @@ const AdminDashboard = () => {
           </div>
         </div>
       </header>
+      
+      {/* Main Content Area */}
+      <main className="dashboard-content">
+        {activeTab === 'manage-students' && <ManageStudents />}
+        {activeTab === 'manage-instructors' && <ManageInstructors />}
+        {activeTab === 'manage-courses' && <ManageCourses />}
+        {activeTab === 'usage-reports' && <div>Usage Reports Coming
+      Soon...</div>}
+        {activeTab === 'settings' && <div>Settings Coming
+      Soon...</div>}
+      </main>
 
     </div>
   )

@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import './instructor-dashboard.css'
+import CreateAssignment from '../components/CreateAssignment'
 
 const InstructorDashboard = () => {
   const [darkMode, setDarkMode] = useState(false)
@@ -197,15 +198,7 @@ const InstructorDashboard = () => {
           )}
 
           {/* Placeholder sections for other tabs */}
-          {activeTab === 'create-assignment' && (
-            <section className="create-assignment-section">
-              <h2>Create New Assignment</h2>
-              <div className="placeholder-content">
-                <p>➕ Assignment creation interface will be implemented here.</p>
-                <p>Instructors will be able to create programming assignments with requirements, test cases, and due dates.</p>
-              </div>
-            </section>
-          )}
+          {activeTab === 'create-assignment' && <CreateAssignment />}
 
           {activeTab === 'manage' && (
             <section className="manage-section">
