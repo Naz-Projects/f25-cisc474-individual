@@ -25,7 +25,7 @@ function LandingPage() {
             </p>
 
             <div className="hero-buttons">
-              <Link to="/signup" className="btn-primary">
+              <Link to="/" className="btn-primary">
                 Start Learning
               </Link>
               <a href="#features" className="btn-secondary">
@@ -157,10 +157,10 @@ function LandingPage() {
             Join thousands of students who are already mastering programming with our AI-powered platform.
           </p>
           <div className="cta-buttons">
-            <Link to="/signup" className="btn-primary">
+            <Link to="/" className="btn-primary">
               Start Learning Today
             </Link>
-            <Link to="/demo" className="btn-secondary">
+            <Link to="/" className="btn-secondary">
               Request Demo
             </Link>
           </div>
@@ -186,28 +186,28 @@ function LandingPage() {
               <ul>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#pricing">Pricing</a></li>
-                <li><Link to="/demo">Demo</Link></li>
-                <li><Link to="/api">API</Link></li>
+                <li><Link to='/'>Demo</Link></li>
+                <li><Link to='/'>API</Link></li>
               </ul>
             </div>
 
             <div className="footer-section">
               <h4>Company</h4>
               <ul>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/blog">Blog</Link></li>
-                <li><Link to="/careers">Careers</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                <li><Link to='/'>About</Link></li>
+                <li><Link to='/'>Blog</Link></li>
+                <li><Link to='/'>Careers</Link></li>
+                <li><Link to='/'>Contact</Link></li>
               </ul>
             </div>
 
             <div className="footer-section">
               <h4>Support</h4>
               <ul>
-                <li><Link to="/help">Help Center</Link></li>
-                <li><Link to="/docs">Documentation</Link></li>
-                <li><Link to="/community">Community</Link></li>
-                <li><Link to="/status">Status</Link></li>
+                <li><Link to='/'>Help Center</Link></li>
+                <li><Link to='/'>Documentation</Link></li>
+                <li><Link to='/'>Community</Link></li>
+                <li><Link to='/'>Status</Link></li>
               </ul>
             </div>
           </div>
