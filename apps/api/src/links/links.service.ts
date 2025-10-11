@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { Link } from '@repo/api/links/entities/link.entity';
-
 import { CreateLinkDto } from '@repo/api/links/dto/create-link.dto';
 import { UpdateLinkDto } from '@repo/api/links/dto/update-link.dto';
+
+interface Link {
+  id: number;
+  title: string;
+  url: string;
+  description: string;
+}
 
 @Injectable()
 export class LinksService {
