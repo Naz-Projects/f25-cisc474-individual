@@ -1,6 +1,55 @@
 import React, { useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { backendFetcher } from '../integrations/fetcher';
 import '../styles/dashboard.css';
+
+// Type definitions for our data
+interface Assignment {
+  id: string;
+  title: string;
+  dueDate: string;
+  maxPoints: number | null;
+}
+
+interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
+interface Instructor {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface Course {
+  id: string;
+  title: string;
+  courseCode: string;
+  description: string | null;
+  instructor: Instructor;
+  assignments: Assignment[];
+  announcements: Announcement[];
+  dayOfWeek: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  _count: {
+    enrollments: number;
+  };
+}
+
+interface Enrollment {
+  id: string;
+  userId: string;
+  courseId: string;
+  status: string;
+  enrolledAt: string;
+  course: Course;
+}
 
 export const Route = createFileRoute('/dashboard')({
   component: StudentDashboard,
@@ -10,63 +59,68 @@ function StudentDashboard() {
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState('courses');
 
-  // Mock data for demonstration
-  const courses = [
-    {
-      id: 1,
-      name: 'Introduction to Programming',
-      code: 'CISC 108',
-      instructor: 'Dr. Smith',
-      progress: 85,
-      assignments: 3,
-      announcements: 2,
-      nextDeadline: 'Assignment 4 - Oct 15, 2024'
-    },
-    {
-      id: 2,
-      name: 'Data Structures',
-      code: 'CISC 220',
-      instructor: 'Prof. Johnson',
-      progress: 72,
-      assignments: 5,
-      announcements: 1,
-      nextDeadline: 'Project 2 - Oct 20, 2024'
-    },
-    {
-      id: 3,
-      name: 'Web Technologies',
-      code: 'CISC 474',
-      instructor: 'Dr. Bart',
-      progress: 90,
-      assignments: 2,
-      announcements: 0,
-      nextDeadline: 'Final Project - Dec 1, 2025'
-    },
-    {
-      id: 4,
-      name: 'Database Systems',
-      code: 'CISC 437',
-      instructor: 'Prof. Gibbons',
-      progress: 78,
-      assignments: 4,
-      announcements: 3,
-      nextDeadline: 'Exam - Sept 30, 2025'
-    },
-    {
-      id: 5,
-      name: 'Senior Design',
-      code: 'CISC 498',
-      instructor: 'Professor Armando',
-      progress: 65,
-      assignments: 6,
-      announcements: 1,
-      nextDeadline: 'Team Project - Oct 25, 2025'
-    }
-  ];
+  // TODO: In production, get userId from authentication
+  // For now, we'll use the seeded user ID
+  const userId = 'user_nazmul_001';
+
+  // Fetch user's enrolled courses from backend
+  const { data: enrollments, isLoading, error } = useQuery({
+    queryKey: ['userCourses', userId],
+    queryFn: backendFetcher<Enrollment[]>(`/enrollments/user/${userId}/courses`),
+  });
+
+  // Transform backend data to match our UI format
+  const courses = enrollments?.map(enrollment => {
+    const course = enrollment.course;
+    const nextAssignment = course.assignments[0]; // Already sorted by dueDate
+
+    return {
+      id: course.id,
+      name: course.title,
+      courseCode: enrollment.course.courseCode,
+      instructor: course.instructor.name,
+      progress: 0, // TODO: Calculate based on submitted assignments
+      assignments: course.assignments.length,
+      announcements: course.announcements.length,
+      nextDeadline: nextAssignment
+        ? `${nextAssignment.title} - ${formatDate(nextAssignment.dueDate)}`
+        : 'No upcoming assignments'
+    };
+  }) || [];
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
+
+
+  // Helper function to format dates nicely
+  function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className={`dashboard-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+          <h2>Loading your courses...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className={`dashboard-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', flexDirection: 'column' }}>
+          <h2>Error loading courses</h2>
+          <p>Please try refreshing the page</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`dashboard-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -142,7 +196,7 @@ function StudentDashboard() {
                   <div key={course.id} className="course-card">
                     <div className="course-header">
                       <h3 className="course-name">{course.name}</h3>
-                      <span className="course-code">{course.code}</span>
+                      <span className="course-code">{course.courseCode}</span>
                     </div>
 
                     <div className="course-info">

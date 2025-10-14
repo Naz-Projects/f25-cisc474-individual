@@ -92,6 +92,7 @@ const testCourses = [
   {
     id: "course_cisc108_001",
     title: "Introduction to Programming",
+    courseCode: "CISC 108",
     description: "Fundamental concepts of programming using Python.",
     instructorID: "instructor_smith_001",
     dayOfWeek: "MONDAY,WEDNESDAY,FRIDAY",
@@ -107,6 +108,7 @@ const testCourses = [
   {
     id: "course_cisc220_002",
     title: "Data Structures",
+    courseCode: "CISC 220",
     description: "Advanced data structures and algorithms.",
     instructorID: "instructor_johnson_002",
     dayOfWeek: "TUESDAY,THURSDAY",
@@ -122,6 +124,7 @@ const testCourses = [
   {
     id: "course_cisc474_003",
     title: "Web Technologies",
+    courseCode: "CISC 474",
     description: "Modern web development frameworks and technologies.",
     instructorID: "instructor_smith_001",
     dayOfWeek: "FRIDAY",
