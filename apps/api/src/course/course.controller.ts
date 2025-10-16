@@ -14,5 +14,11 @@ export class CourseController {
     async findOne(@Param('id') id: string) {
         return this.courseService.findOne(id);
     }
+    //Get all courses taught by a specific instructor
+    @Get('instructor/:instructorId')
+        async getInstructorCourses(@Param('instructorId') instructorId: 
+        string) {
+            return this.courseService.findInstructorCourses(instructorId);
+        }
 
 }

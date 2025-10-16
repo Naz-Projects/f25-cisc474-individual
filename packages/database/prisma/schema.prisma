@@ -49,6 +49,7 @@ model Profile {
 model Course {
   id          String   @id @default(cuid())
   title       String
+  courseCode  String
   description String?
   instructorID String
   instructor  User  @relation(fields: [instructorID], references: [id], onDelete: Cascade)

@@ -2,11 +2,53 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import React, { useState } from 'react';
 import '../styles/instructor-dashboard.css';
 import CreateAssignment from '../components/CreateAssignment';
-
+import { backendFetcher } from '../integrations/fetcher';
+import { useQuery } from '@tanstack/react-query';
 export const Route = createFileRoute('/instructor-dashboard')({
   component: InstructorDashboard,
 });
+interface Assignment {
+  id: string;
+  title: string;
+  description: string | null;
+  dueDate: string;
+  maxPoints: number | null;
+  courseId: string;
+}
+interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  courseId: string;
+  instructorId: string;
+  createdAt: string;
+}
 
+interface Instructor {
+  id: string;
+  name: string | null;
+  email: string | null;
+  role: string;
+}
+
+interface Course {
+  id: string;
+  title: string;
+  courseCode: string;
+  description: string | null;
+  instructorID: string;
+  dayOfWeek: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  instructor: Instructor;
+  assignments: Assignment[];
+  announcements: Announcement[];
+  _count: {
+    enrollments: number;
+    assignments: number;
+  };
+}
 function InstructorDashboard() {
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState('courses');
@@ -16,64 +58,27 @@ function InstructorDashboard() {
     setMounted(true);
   }, []);
 
-  // Mock data for demonstration - Instructor perspective
-  const courses = [
-    {
-      id: 1,
-      name: 'Introduction to Programming',
-      code: 'CISC 108',
-      instructor: 'Dr. Smith',
-      enrolledStudents: 45,
-      assignments: 8,
-      pendingGrades: 12,
-      announcements: 2,
-      nextDeadline: 'Assignment 4 Due - Oct 15, 2024',
-    },
-    {
-      id: 2,
-      name: 'Data Structures',
-      code: 'CISC 220',
-      instructor: 'Prof. Johnson',
-      enrolledStudents: 32,
-      assignments: 10,
-      pendingGrades: 5,
-      announcements: 1,
-      nextDeadline: 'Project 2 Due - Oct 20, 2024',
-    },
-    {
-      id: 3,
-      name: 'Web Technologies',
-      code: 'CISC 474',
-      instructor: 'Dr. Bart',
-      enrolledStudents: 28,
-      assignments: 6,
-      pendingGrades: 8,
-      announcements: 0,
-      nextDeadline: 'Final Project Due - Dec 1, 2025',
-    },
-    {
-      id: 4,
-      name: 'Database Systems',
-      code: 'CISC 437',
-      instructor: 'Prof. Gibbons',
-      enrolledStudents: 38,
-      assignments: 9,
-      pendingGrades: 15,
-      announcements: 3,
-      nextDeadline: 'Exam - Sept 30, 2025',
-    },
-    {
-      id: 5,
-      name: 'Senior Design',
-      code: 'CISC 498',
-      instructor: 'Professor Armando',
-      enrolledStudents: 24,
-      assignments: 4,
-      pendingGrades: 3,
-      announcements: 1,
-      nextDeadline: 'Team Project Due - Oct 25, 2025',
-    },
-  ];
+  const instructorId = 'instructor_bart_003';
+
+  const { data: coursesData, isLoading, error } = useQuery({
+    queryKey: ['instructorCourses', instructorId],
+    queryFn: backendFetcher<Course[]>(`/courses/instructor/${instructorId}`),
+  });
+
+  // Transform backend data for the UI
+  const courses = coursesData?.map((course) => ({
+    id: course.id,
+    name: course.title,
+    code: course.courseCode,
+    instructor: course.instructor.name || 'Unknown',
+    enrolledStudents: course._count.enrollments,
+    assignments: course._count.assignments,
+    pendingGrades: 0, // We'll add this later when we have submissions
+    announcements: course.announcements.length,
+    nextDeadline: course.assignments[0]
+      ? `${course.assignments[0].title} Due - ${new Date(course.assignments[0].dueDate).toLocaleDateString()}`
+      : 'No upcoming deadlines',
+  })) || [];
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -82,11 +87,25 @@ function InstructorDashboard() {
   if (!mounted) {
     return null;
   }
+  if (isLoading) {
+    return (
+      <div className="instructor-dashboard-container">
+        <p>Loading Dr. Bart's courses...</p>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="instructor-dashboard-container">
+        <p>Error loading courses. Please try again.</p>
+      </div>
+    );
+  }
 
   return (
-    <div
-      className={`instructor-dashboard-container ${darkMode ? 'dark-mode' : 'light-mode'}`}
-    >
+    <div className={`instructor-dashboard-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       {/* Navigation Header */}
       <header className="dashboard-header">
         <div className="header-content">
