@@ -16,4 +16,29 @@ export class CourseService {
             where: { id },  
         });
     }
+
+    //returns Array of courses with enrollments, assignments, and announcements
+    async findInstructorCourses(instructorId: string) {
+        return this.prisma.course.findMany({
+            where: {
+                instructorID: instructorId
+            },
+            include: {
+                instructor: true,
+                assignments: {
+                    orderBy: { dueDate: 'asc' }
+                },
+                announcements: {
+                    orderBy: { createdAt: 'desc' },
+                    take: 3
+                },
+                _count: {
+                    select: {
+                        enrollments: true,
+                        assignments: true
+                    }
+                }
+            }
+        });
+    }
 }
