@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { from } from 'rxjs';
+import { env } from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -7,7 +9,7 @@ async function bootstrap() {
   // Configure CORS to allow multiple origins (dev and production)
   const allowedOrigins = [
     'http://localhost:3001',
-    'https://codify-lms.pages.dev', // Cloudflare Pages production
+    process.env.FRONTEND_URL, // Cloudflare Pages production
     /\.codify-lms\.pages\.dev$/, // Cloudflare Pages preview branches
   ];
 
