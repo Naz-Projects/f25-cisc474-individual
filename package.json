@@ -35,7 +35,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@prisma/client": "latest"
+    "@prisma/client": "latest",
+    "zod": "^4.1.12"
   },
   "packageManager": "npm@10.9.0",
   "workspaces": [
