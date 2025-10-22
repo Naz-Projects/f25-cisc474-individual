@@ -1,55 +1,87 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import React, { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { backendFetcher } from '../integrations/fetcher';
 import '../styles/instructor-dashboard.css';
 import CreateAssignment from '../components/CreateAssignment';
-import { backendFetcher } from '../integrations/fetcher';
-import { useQuery } from '@tanstack/react-query';
+
 export const Route = createFileRoute('/instructor-dashboard')({
   component: InstructorDashboard,
 });
 interface Assignment {
+    id: string;
+    title: string;
+    description: string | null;
+    dueDate: string;
+    maxPoints: number | null;
+    courseId: string;
+  }
+
+  interface Announcement {
+    id: string;
+    title: string;
+    content: string;
+    courseId: string;
+    instructorId: string;
+    createdAt: string;
+  }
+
+  interface Instructor {
+    id: string;
+    name: string | null;
+    email: string | null;
+    role: string;
+  }
+
+  interface Course {
+    id: string;
+    title: string;
+    courseCode: string;
+    description: string | null;
+    instructorID: string;
+    dayOfWeek: string;
+    startTime: string;
+    endTime: string;
+    location: string;
+    instructor: Instructor;
+    assignments: Assignment[];
+    announcements: Announcement[];
+    _count: {
+      enrollments: number;
+      assignments: number;
+    };
+  }
+
+type AssignmentOut = {
   id: string;
   title: string;
   description: string | null;
   dueDate: string;
   maxPoints: number | null;
   courseId: string;
-}
-interface Announcement {
-  id: string;
-  title: string;
-  content: string;
-  courseId: string;
-  instructorId: string;
+  courseName: string;
+  courseCode: string;
   createdAt: string;
-}
+  updatedAt: string;
+};
 
-interface Instructor {
-  id: string;
-  name: string | null;
-  email: string | null;
-  role: string;
-}
+type AssignmentCreateIn = {
+  title: string;
+  description?: string | null;
+  dueDate: string;
+  maxPoints?: number | null;
+  courseId: string;
+};
 
-interface Course {
+type CourseOption = {
   id: string;
   title: string;
   courseCode: string;
-  description: string | null;
-  instructorID: string;
-  dayOfWeek: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  instructor: Instructor;
-  assignments: Assignment[];
-  announcements: Announcement[];
-  _count: {
-    enrollments: number;
-    assignments: number;
-  };
-}
+};
+
+
 function InstructorDashboard() {
+  const CURRENT_INSTRUCTOR_ID = 'instructor_bart_003';
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState('courses');
   const [mounted, setMounted] = useState(false);
@@ -58,7 +90,7 @@ function InstructorDashboard() {
     setMounted(true);
   }, []);
 
-  const instructorId = 'instructor_bart_003';
+  const instructorId = CURRENT_INSTRUCTOR_ID;
 
   const { data: coursesData, isLoading, error } = useQuery({
     queryKey: ['instructorCourses', instructorId],
@@ -226,7 +258,7 @@ function InstructorDashboard() {
           )}
 
           {/* Placeholder sections for other tabs */}
-          {activeTab === 'create-assignment' && <CreateAssignment />}
+          {activeTab === 'create-assignment' && <CreateAssignment instructorId={CURRENT_INSTRUCTOR_ID} />}
 
           {activeTab === 'manage' && (
             <section className="manage-section">
