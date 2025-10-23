@@ -54,32 +54,31 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
         courseId: '',
     });
     const queryClient = useQueryClient();
+
     React.useEffect(() => {
         setMounted(true);
     }, []);
+
+    // Fetch assignments using React Query
+    const { data: assignmentsData = [], isLoading: assignmentsLoading } = useQuery({
+        queryKey: ['assignments'],
+        queryFn: backendFetcher<AssignmentOut[]>('/assignments'),
+        initialData: [],
+    });
+
+    // Fetch courses using React Query
+    const { data: coursesData = [], isLoading: coursesLoading } = useQuery({
+        queryKey: ['courses', 'instructor', instructorId],
+        queryFn: backendFetcher<CourseOption[]>(`/courses/instructor/${instructorId}`),
+        initialData: [],
+    });
+
+    // Update local state when data changes
     React.useEffect(() => {
-      // Fetch assignments
-    const fetchAssignments = fetch(`${import.meta.env.VITE_BACKEND_URL}/assignments`)
-        .then((res) => res.json());
-
-    // Fetch courses for this instructor
-    const fetchCourses = fetch(`${import.meta.env.VITE_BACKEND_URL}/courses/instructor/${instructorId}`)
-        .then((res) => res.json());
-
-    // Wait for both to complete
-    Promise.all([fetchAssignments, fetchCourses])
-        .then(([assignmentsData, coursesData]) => {
-            console.log('Assignments:', assignmentsData);
-            console.log('Courses:', coursesData);
-            setAssignments(Array.isArray(assignmentsData) ? assignmentsData : []);
-            setCourses(Array.isArray(coursesData) ? coursesData : []);
-            setLoading(false);
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-            setLoading(false);
-        });
-}, [instructorId]);
+        setAssignments(assignmentsData);
+        setCourses(coursesData);
+        setLoading(assignmentsLoading || coursesLoading);
+    }, [assignmentsData, coursesData, assignmentsLoading, coursesLoading]);
 
     const createMutation = useMutation({
         mutationFn: (newAssignment: AssignmentCreateIn) => {
@@ -130,6 +129,22 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
                 maxPoints: undefined,
                 courseId: '',
             });
+        },
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => {
+            return mutateBackend<void>(`/assignments/${id}`, 'DELETE');
+        },
+        onSuccess: (_, deletedId) => {
+            // Remove from cache
+            queryClient.removeQueries({ queryKey: ['assignments', deletedId] });
+
+            // Invalidate assignments list to refetch
+            queryClient.invalidateQueries({ queryKey: ['assignments'] });
+
+            // Update local state immediately
+            setAssignments(prev => prev.filter(a => a.id !== deletedId));
         },
     });
     
@@ -456,11 +471,17 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
                                 >
                                     Edit
                                 </button>
-                                <button 
-                                    style={{ padding: '5px 10px', backgroundColor: '#f44336', color: 'white', border: 'none', borderRadius: '4px',
-                cursor: 'pointer' }}
+                                <button
+                                    onClick={() => {
+                                        if (window.confirm(`Are you sure you want to delete "${assignment.title}"? This action cannot be undone.`)) {
+                                            deleteMutation.mutate(assignment.id);
+                                        }
+                                    }}
+                                    disabled={deleteMutation.isPending}
+                                    style={{ padding: '5px 10px', backgroundColor: '#f44336', color: 'white', border: 'none', borderRadius: '4px', cursor:
+                                'pointer', opacity: deleteMutation.isPending ? 0.6 : 1 }}
                                 >
-                                    Delete
+                                    {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
                                 </button>
                             </td>
                         </tr>
