@@ -34,6 +34,7 @@ model User {
   enrollments Enrollment[]
   submissions Submission[]
   Announcement Announcement[]
+  authentications Authentication[]
   @@index([role]) // finding all students and instructors
   @@index([email]) //login purposes
 }
@@ -128,4 +129,14 @@ model Announcement {
   createdAt   DateTime @default(now())
 }
 
+model Authentication {
+  id          String   @id @default(cuid())
+  provider    String  
+  providerId  String  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  createdAt   DateTime @default(now())
 
+  @@unique([provider, providerId])
+  @@index([userId])
+}
