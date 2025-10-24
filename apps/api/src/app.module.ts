@@ -17,10 +17,11 @@ import { ProfileModule } from './profile/profile.module';
 import { SubmissionService } from './submission/submission.service';
 import { SubmissionController } from './submission/submission.controller';
 import { SubmissionModule } from './submission/submission.module';
-
+import { AuthModule } from './auth/auth.module';
+import { PrismaModule } from './prisma.module';
 
 @Module({
-  imports: [LinksModule, UsersModule, CourseModule, AssignmentModule, AnnouncementModule, EnrollmentModule, ProfileModule, SubmissionModule],
+  imports: [PrismaModule, LinksModule, UsersModule, CourseModule, AssignmentModule, AnnouncementModule, EnrollmentModule,ProfileModule, SubmissionModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

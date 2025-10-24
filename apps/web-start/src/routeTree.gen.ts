@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorDashboardRouteImport } from './routes/instructor-dashboard'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AdminDashboardRouteImport } from './routes/admin-dashboard'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const LoginRoute = LoginRouteImport.update({
 const InstructorDashboardRoute = InstructorDashboardRouteImport.update({
   id: '/instructor-dashboard',
   path: '/instructor-dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin-dashboard': typeof AdminDashboardRoute
   '/dashboard': typeof DashboardRoute
+  '/home': typeof HomeRoute
   '/instructor-dashboard': typeof InstructorDashboardRoute
   '/login': typeof LoginRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin-dashboard': typeof AdminDashboardRoute
   '/dashboard': typeof DashboardRoute
+  '/home': typeof HomeRoute
   '/instructor-dashboard': typeof InstructorDashboardRoute
   '/login': typeof LoginRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin-dashboard': typeof AdminDashboardRoute
   '/dashboard': typeof DashboardRoute
+  '/home': typeof HomeRoute
   '/instructor-dashboard': typeof InstructorDashboardRoute
   '/login': typeof LoginRoute
 }
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin-dashboard'
     | '/dashboard'
+    | '/home'
     | '/instructor-dashboard'
     | '/login'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin-dashboard'
     | '/dashboard'
+    | '/home'
     | '/instructor-dashboard'
     | '/login'
   id:
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin-dashboard'
     | '/dashboard'
+    | '/home'
     | '/instructor-dashboard'
     | '/login'
   fileRoutesById: FileRoutesById
@@ -91,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   DashboardRoute: typeof DashboardRoute
+  HomeRoute: typeof HomeRoute
   InstructorDashboardRoute: typeof InstructorDashboardRoute
   LoginRoute: typeof LoginRoute
 }
@@ -109,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/instructor-dashboard'
       fullPath: '/instructor-dashboard'
       preLoaderRoute: typeof InstructorDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -139,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   DashboardRoute: DashboardRoute,
+  HomeRoute: HomeRoute,
   InstructorDashboardRoute: InstructorDashboardRoute,
   LoginRoute: LoginRoute,
 }

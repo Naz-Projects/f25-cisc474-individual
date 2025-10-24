@@ -1,12 +1,15 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import Navbar from '../components/Navbar';
 import '../styles/landing.css';
-
+import { useAuth0 } from '@auth0/auth0-react';
+import { LoginButton } from '../components/LoginButton';
+import { LogoutButton } from '../components/LogoutButton';
 export const Route = createFileRoute('/')({
   component: LandingPage,
 });
 
 function LandingPage() {
+  const { isAuthenticated, isLoading } = useAuth0();
   return (
     <>
       <Navbar />
@@ -25,12 +28,23 @@ function LandingPage() {
             </p>
 
             <div className="hero-buttons">
-              <Link to="/" className="btn-primary">
-                Start Learning
-              </Link>
-              <a href="#features" className="btn-secondary">
-                Explore Features
-              </a>
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : isAuthenticated ? (
+                <>
+                  <Link to="/home" className="btn-primary">
+                    Go to Dashboard
+                  </Link>
+                  <LogoutButton />
+                </>
+              ) : (
+                <>
+                  <LoginButton />
+                  <a href="#features" className="btn-secondary">
+                    Explore Features
+                  </a>
+                </>
+              )}
             </div>
 
             <div className="stats">
