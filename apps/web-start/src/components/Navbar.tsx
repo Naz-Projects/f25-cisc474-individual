@@ -5,7 +5,10 @@ import { LoginButton } from './LoginButton'
 import { LogoutButton } from './LogoutButton'
   const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
-    const { isAuthenticated, isLoading } = useAuth0()
+
+    // Only use Auth0 on client side
+    const auth0Context = typeof window !== 'undefined' ? useAuth0() : { isAuthenticated: false, isLoading: true }
+    const { isAuthenticated, isLoading} = auth0Context
 
     useEffect(() => {
       const handleScroll = () => {
