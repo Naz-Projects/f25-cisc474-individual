@@ -9,7 +9,9 @@ export const Route = createFileRoute('/')({
 });
 
 function LandingPage() {
-  const { isAuthenticated, isLoading } = useAuth0();
+  // Only use Auth0 on client side
+  const auth0Context = typeof window !== 'undefined' ? useAuth0() : { isAuthenticated: false, isLoading: true };
+  const { isAuthenticated, isLoading } = auth0Context;
   return (
     <>
       <Navbar />

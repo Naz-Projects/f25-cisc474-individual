@@ -7,7 +7,9 @@ component: Home,
 });
 
 function Home() {
-const { user, isLoading } = useAuth0();
+// Only use Auth0 on client side
+const auth0Context = typeof window !== 'undefined' ? useAuth0() : { user: null, isLoading: true };
+const { user, isLoading } = auth0Context;
 
 if (isLoading) {
     return <div>Loading...</div>;
