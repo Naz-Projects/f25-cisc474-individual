@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { backendFetcher, mutateBackend } from '../integrations/fetcher';
-
+import { useAuth0 } from '@auth0/auth0-react';
 // DTO Types for CreateAssignment component
 type AssignmentOut = {
     id: string;
@@ -54,7 +54,19 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
         courseId: '',
     });
     const queryClient = useQueryClient();
-
+    const { getAccessTokenSilently } = useAuth0();
+    const getToken = async () => {
+        try {
+            return await getAccessTokenSilently({
+            authorizationParams: {
+                audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+            },
+            });
+        } catch (error) {
+            console.error('Error getting token:', error);
+            return undefined;
+        }
+    };
     React.useEffect(() => {
         setMounted(true);
     }, []);
@@ -82,7 +94,7 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
 
     const createMutation = useMutation({
         mutationFn: (newAssignment: AssignmentCreateIn) => {
-            return mutateBackend<AssignmentOut>('/assignments', 'POST', {
+            return mutateBackend<AssignmentOut>(getToken, '/assignments', 'POST', {
                 ...newAssignment,
                 dueDate: new Date(newAssignment.dueDate).toISOString(),
             });
@@ -108,7 +120,7 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
 
     const updateMutation = useMutation({
         mutationFn: ({ id, data }: { id: string; data: Partial<AssignmentCreateIn> }) => {
-            return mutateBackend<AssignmentOut>(`/assignments/${id}`, 'PATCH', {
+            return mutateBackend<AssignmentOut>(getToken, `/assignments/${id}`, 'PATCH', {
                 ...data,
                 dueDate: data.dueDate ? new Date(data.dueDate).toISOString() : undefined,
             });
@@ -134,7 +146,7 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
 
     const deleteMutation = useMutation({
         mutationFn: (id: string) => {
-            return mutateBackend<void>(`/assignments/${id}`, 'DELETE');
+            return mutateBackend<void>(getToken, `/assignments/${id}`, 'DELETE');
         },
         onSuccess: (_, deletedId) => {
             // Remove from cache
