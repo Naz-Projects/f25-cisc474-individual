@@ -14,12 +14,21 @@ import { createRouter } from '@tanstack/react-router';
       context: { ...rqContext },
       defaultPreload: 'intent',
       Wrap: (props: { children: React.ReactNode }) => {
+        // Only render Auth0Provider on the client side
+        if (typeof window === 'undefined') {
+          return (
+            <TanstackQuery.Provider {...rqContext}>
+              {props.children}
+            </TanstackQuery.Provider>
+          );
+        }
+
         return (
           <Auth0Provider
             domain={import.meta.env.VITE_AUTH0_DOMAIN}
             clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
             authorizationParams={{
-              redirect_uri: typeof window !== 'undefined' ? `${window.location.origin}/home` : 'http://localhost:3001/home',
+              redirect_uri: `${window.location.origin}/home`,
               audience: import.meta.env.VITE_AUTH0_AUDIENCE,
               scope: 'openid profile email read:courses',
             }}
