@@ -39,11 +39,8 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
         maxPoints: undefined,
         courseId: '',
     });
-    const [assignments, setAssignments] = useState<AssignmentOut[]>([]);
-    const [courses, setCourses] = useState<CourseOption[]>([]);
     const [searchId, setSearchId] = useState('');
     const [searchResult, setSearchResult] = useState<AssignmentOut | null>(null);
-    const [loading, setLoading] = useState(true);
     const [mounted, setMounted] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<AssignmentCreateIn>({
@@ -86,11 +83,6 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
     });
 
     // Update local state when data changes
-    React.useEffect(() => {
-        setAssignments(assignmentsData);
-        setCourses(coursesData);
-        setLoading(assignmentsLoading || coursesLoading);
-    }, [assignmentsData, coursesData, assignmentsLoading, coursesLoading]);
 
     const createMutation = useMutation({
         mutationFn: (newAssignment: AssignmentCreateIn) => {
@@ -148,15 +140,15 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
         mutationFn: (id: string) => {
             return mutateBackend<void>(getToken, `/assignments/${id}`, 'DELETE');
         },
-        onSuccess: (_, deletedId) => {
-            // Remove from cache
-            queryClient.removeQueries({ queryKey: ['assignments', deletedId] });
+        onSuccess: async (_, deletedId) => {
+            // Optimistically update the cache by removing the deleted assignment
+            queryClient.setQueryData<AssignmentOut[]>(['assignments'], (oldData) => {
+                if (!oldData) return [];
+                return oldData.filter((assignment) => assignment.id !== deletedId);
+            });
 
-            // Invalidate assignments list to refetch
-            queryClient.invalidateQueries({ queryKey: ['assignments'] });
-
-            // Update local state immediately
-            setAssignments(prev => prev.filter(a => a.id !== deletedId));
+            // Force an immediate refetch instead of just invalidating
+            await queryClient.refetchQueries({ queryKey: ['assignments'] });
         },
     });
     
@@ -178,11 +170,11 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
 
     // Helper function to get course title by courseId
     const getCourseName = (courseId: string) => {
-        const course = courses.find(c => c.id === courseId);
+        const course = coursesData.find(c => c.id === courseId);
         return course ? course.title : 'Unknown Course';
     };
 
-    if (!mounted || loading) {
+    if (!mounted || assignmentsLoading || coursesLoading) {
         return <div>Loading assignments...</div>;
     }
 
@@ -253,7 +245,7 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
                                     style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
                                 >
                                     <option value="">Select a course</option>
-                                    {courses.map((course) => (
+                                    {coursesData.map((course) => (
                                         <option key={course.id} value={course.id}>
                                             {course.courseCode} - {course.title}
                                         </option>
@@ -387,7 +379,7 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
                                     style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
                                 >
                                     <option value="">Select a course</option>
-                                    {courses.map((course) => (
+                                    {coursesData.map((course) => (
                                         <option key={course.id} value={course.id}>
                                             {course.courseCode} - {course.title}
                                         </option>
@@ -445,7 +437,7 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
 
             {/* All Assignments List */}
             <div style={{ backgroundColor: '#f8f9fa', padding: '25px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', marginTop: '40px' }}>
-                <h3 style={{ marginTop: '0', marginBottom: '20px' }}>All Assignments ({assignments.length})</h3>
+                <h3 style={{ marginTop: '0', marginBottom: '20px' }}>All Assignments ({assignmentsData.length})</h3>
                 <table className="students-table" style={{ marginBottom: '0', border: '1px solid #ddd', borderCollapse: 'collapse', width: '100%', backgroundColor: 'white' }}>
                 <thead>
                     <tr>
@@ -458,8 +450,9 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {assignments.map((assignment) => (
-                        <tr key={assignment.id}>
+                    {assignmentsData.map((assignment) => (
+
+<tr key={assignment.id}>
                             <td>{assignment.id}</td>
                             <td>{assignment.title}</td>
                             <td>{getCourseName(assignment.courseId)}</td>
