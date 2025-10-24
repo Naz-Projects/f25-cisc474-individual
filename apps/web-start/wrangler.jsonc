@@ -1,13 +1,13 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "codify-lms",
-  "compatibility_date": "2025-09-02",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
-  "vars": {
-    "VITE_BACKEND_URL": "https://f25-cisc474-individual-xjk9.onrender.com",
-    "VITE_AUTH0_DOMAIN": "dev-5f7sir3t5xxcwhax.us.auth0.com",
-    "VITE_AUTH0_CLIENT_ID": "nmLlz1Hs3uqIQSlPSveDRpQ39ChmswRz",
-    "VITE_AUTH0_AUDIENCE": "https://f25-cisc474-individual-xjk9.onrender.com/"
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "codify-lms",
+    "compatibility_date": "2025-09-02",
+    "compatibility_flags": ["nodejs_compat"],
+    "main": "@tanstack/react-start/server-entry",
+    "vars": {
+      "VITE_BACKEND_URL": "https://f25-cisc474-individual-xjk9.onrender.com",
+      "VITE_AUTH0_DOMAIN": "dev-5f7sir3t5xxcwhax.us.auth0.com",
+      "VITE_AUTH0_CLIENT_ID": "nmLlz1Hs3uqIQSlPSveDRpQ39ChmswRz",
+      "VITE_AUTH0_AUDIENCE": "https://f25-cisc474-individual-xjk9.onrender.com/"
+    }
   }
-}
