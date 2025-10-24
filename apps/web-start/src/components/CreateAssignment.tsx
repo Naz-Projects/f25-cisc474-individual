@@ -51,7 +51,9 @@ function CreateAssignment({ instructorId }: { instructorId: string }) {
         courseId: '',
     });
     const queryClient = useQueryClient();
-    const { getAccessTokenSilently } = useAuth0();
+    // Only use Auth0 on client side
+    const auth0Context = typeof window !== 'undefined' ? useAuth0() : { getAccessTokenSilently: async () => undefined };
+    const { getAccessTokenSilently } = auth0Context;
     const getToken = async () => {
         try {
             return await getAccessTokenSilently({
